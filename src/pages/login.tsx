@@ -12,29 +12,18 @@ import {
 import Navbar from "./components/navbar";
 import theme from "@/theme";
 import { BsGoogle } from "react-icons/bs";
-import { auth } from "@/services/firebase";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { useContext } from "react";
+import { AuthContext } from "@/context/AuthContext";
+
 
 
 export default function Login() {
-  const toast = useToast();
+  const { login } = useContext(AuthContext);
 
-  const handleGoogleLogin = async () => {
-    const provider = new GoogleAuthProvider();
-    await signInWithPopup(auth, provider)
-    .then((result) => {
-        const user = result.user
-        console.log(user.displayName)
-
-    });
-    toast({
-      title: "Login com sucesso",
-      status: "success",
-      position: "top-right",
-      duration: 2000,
-      isClosable: true,
-    });
-  };
+  const handleLogin = (e: {preventDefault: () => void}) => {
+    e.preventDefault();
+    login()
+  }
 
   return (
     <>
@@ -68,7 +57,7 @@ export default function Login() {
                   _hover={{
                     bg: "pink.300",
                   }}
-                  onClick={handleGoogleLogin}
+                  onClick={handleLogin}
                 >
                   Entre com Google
                 </Button>

@@ -12,8 +12,10 @@ import {
   useBreakpointValue,
 } from "@chakra-ui/react";
 import theme from "../../theme";
+import { useRouter } from "next/router";
 
 export default function Hero() {
+  const router = useRouter()
   const marginTop = useBreakpointValue({ base: 10, md: 12 });
   const confetti = {
     light: {
@@ -74,6 +76,7 @@ export default function Hero() {
               _hover={{
                 bg: "pink.300",
               }}
+              onClick={() => router.push('/catalog')}
             >
               Catálogo
             </Button>
